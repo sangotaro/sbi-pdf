@@ -6,6 +6,8 @@ import { promisify } from "util";
 const exec = promisify(childProcess.exec);
 const readdir = promisify(fs.readdir);
 
+const dirname = path.dirname(new URL(import.meta.url).pathname);
+
 // 文字列内に半角スペースが入ることがある
 function purifyInt(str: string): string {
   return str.trim().replace(",", "").replace(/\s+/g, "");
@@ -64,7 +66,7 @@ const TABLE2_HEADERS = [
 
 async function extractTableData(pdfFile: string) {
   const jar = path.join(
-    __dirname,
+    dirname,
     "../lib/tabula-1.0.3-jar-with-dependencies.jar"
   );
   const { stdout } = await exec(
