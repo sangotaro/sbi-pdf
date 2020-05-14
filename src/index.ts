@@ -1,9 +1,11 @@
 import childProcess from "child_process";
 import fs from "fs";
+import os from "os";
 import path from "path";
 import { promisify } from "util";
 
 import expandTilde from "expand-tilde";
+import pLimit from "p-limit";
 import yargs from "yargs";
 
 const exec = promisify(childProcess.exec);
@@ -181,7 +183,10 @@ async function extractTableData(pdfFile: string) {
   console.log("PDF: ", files);
 
   // render csv
-  const results = await Promise.all(files.map((f) => extractTableData(f)));
+  const limit = pLimit(os.cpus().length - 1);
+  const results = await Promise.all(
+    files.map((f) => limit(() => extractTableData(f)))
+  );
   console.log("\n--- RENDER CSV ---\n");
   console.log([...TABLE1_HEADERS, ...TABLE2_HEADERS].join(","));
   results.forEach((groups) => {
