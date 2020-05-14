@@ -88,7 +88,7 @@ async function extractTableData(pdfFile: string) {
   // 2つ1組のグループにする
   const groups = (tables as any[]).reduce((result, table: any) => {
     const lastIndex = result.length - 1;
-    if (!result[lastIndex] || result[lastIndex].length === 0) {
+    if (!result[lastIndex] || result[lastIndex].length === 2) {
       result.push([table]);
     } else {
       result[lastIndex].push(table);
