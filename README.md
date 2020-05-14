@@ -17,6 +17,13 @@ SBI証券の電子交付書面からデータ抽出する
 
 ## Requirements
 
-PDF のパースに [tabula-java](https://github.com/tabulapdf/tabula-java) を使ってるので Java が必要
+- Java: [tabula-java](https://github.com/tabulapdf/tabula-java) を実行している
+
+## Run
+
+```
+# Node.js v14
+node --loader ts-node/esm.mjs src/index.ts --dir=[pdf-dir]
+```
 
 
