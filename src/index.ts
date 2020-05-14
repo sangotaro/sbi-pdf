@@ -3,6 +3,7 @@ import fs from "fs";
 import path from "path";
 import { promisify } from "util";
 
+import expandTilde from "expand-tilde";
 import yargs from "yargs";
 
 const exec = promisify(childProcess.exec);
@@ -155,7 +156,7 @@ async function extractTableData(pdfFile: string) {
     demandOption: true,
   }).argv;
 
-  const dir = argv.dir;
+  const dir = expandTilde(argv.dir);
   const absoluteDir = path.isAbsolute(dir)
     ? dir
     : path.join(process.cwd(), dir);
