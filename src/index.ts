@@ -3,6 +3,9 @@ import fs from "fs";
 import path from "path";
 import { promisify } from "util";
 
+import expandTilde from "expand-tilde";
+import yargs from "yargs";
+
 const exec = promisify(childProcess.exec);
 const readdir = promisify(fs.readdir);
 
@@ -147,17 +150,34 @@ async function extractTableData(pdfFile: string) {
 }
 
 (async () => {
-  const dir = process.argv[2]; // TODO: yargs
+  const argv = yargs.option("dir", {
+    type: "string",
+    description: "PDF のディレクトリ",
+    demandOption: true,
+  }).argv;
 
-  // TODO: validate dir
-
+  const dir = expandTilde(argv.dir);
   const absoluteDir = path.isAbsolute(dir)
     ? dir
     : path.join(process.cwd(), dir);
+
+  try {
+    if (!fs.statSync(absoluteDir).isDirectory()) {
+      throw new Error();
+    }
+  } catch (error) {
+    console.log(`${absoluteDir} が存在しないかディレクトリではありません`);
+    process.exit(1);
+  }
+
   const files = (await readdir(absoluteDir))
     .map((file) => path.join(absoluteDir, file))
     .filter((file) => fs.statSync(file).isFile() && /.*\.pdf$/.test(file));
 
+  if (files.length === 0) {
+    console.log("PDF ファイルがありません");
+    process.exit(0);
+  }
   console.log("PDF: ", files);
 
   // render csv
