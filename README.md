@@ -27,7 +27,7 @@ SBI証券の電子交付書面からデータ抽出する
 npm i --no-save
 
 # Node.js v14
-node --loader ts-node/esm.mjs src/index.ts --dir=[pdf-dir]
+node --experimental-specifier-resolution=node --loader ts-node/esm.mjs src/index.ts --dir=[pdf-dir]
 ```
 
 
