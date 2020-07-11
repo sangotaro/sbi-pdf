@@ -11,7 +11,7 @@
   "dependencies": {
     "expand-tilde": "2.0.2",
     "p-limit": "2.3.0",
-    "yargs": "15.4.0"
+    "yargs": "15.4.1"
   },
   "devDependencies": {
     "@types/expand-tilde": "2.0.0",
