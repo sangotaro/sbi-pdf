@@ -16,6 +16,7 @@ SBI証券の電子交付書面からデータ抽出する
   - [x] 外国株式等配当金等のご案内（兼）支払通知書
   - [ ] 外貨建ＭＭＦ再投資のご案内（兼）支払通知書
   - [ ] 譲渡益税徴収・還付のお知らせ
+  - [ ] 外国株式等株式分割・権利売却等のご案内
 
 ## Requirements
 
@@ -27,7 +28,10 @@ SBI証券の電子交付書面からデータ抽出する
 npm i --no-save
 
 # Node.js v14
-node --experimental-specifier-resolution=node --loader ts-node/esm.mjs src/index.ts --dir=[pdf-dir]
+node --experimental-specifier-resolution=node --loader ts-node/esm src/index --dir=[pdf-dir]
+
+# transpile-only
+node --experimental-specifier-resolution=node --loader ts-node/esm/transpile-only src/index --dir=[pdf-dir]
 ```
 
 
