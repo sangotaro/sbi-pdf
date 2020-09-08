@@ -15,7 +15,7 @@
   },
   "devDependencies": {
     "@types/expand-tilde": "2.0.0",
-    "@types/node": "13.13.16",
+    "@types/node": "13.13.17",
     "@types/yargs": "15.0.5",
     "@typescript-eslint/eslint-plugin": "4.0.1",
     "@typescript-eslint/parser": "4.0.1",
