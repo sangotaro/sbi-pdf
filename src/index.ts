@@ -72,7 +72,7 @@ const TABLE2_HEADERS = [
 async function extractTableData(pdfFile: string) {
   const jar = path.join(
     dirname,
-    "../lib/tabula-1.0.3-jar-with-dependencies.jar"
+    "../lib/tabula-1.0.4-jar-with-dependencies.jar"
   );
   const { stdout } = await exec(
     `java -jar ${jar} -g -l -f JSON -p all ${pdfFile}`
