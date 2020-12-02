@@ -6,6 +6,7 @@ import { promisify } from "util";
 import expandTilde from "expand-tilde";
 import pLimit from "p-limit";
 import yargs from "yargs";
+
 import { extract } from "./table-extractors/gaikoku-kabushiki-haito";
 
 const readdir = promisify(fs.readdir);
@@ -47,8 +48,7 @@ const readdir = promisify(fs.readdir);
   console.log("\n--- RENDER CSV ---\n");
   // headers
   if (results[0]) {
-    const result = results[0];
-    const tables = result[0];
+    const tables = results[0][0];
     if (tables && tables[0] && tables[1]) {
       console.log(
         [...Object.keys(tables[0]), ...Object.keys(tables[1])].join(",")
