@@ -10,5 +10,6 @@
     "editor.formatOnSave": true,
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
-  "cSpell.words": []
+  "cSpell.words": [],
+  "typescript.tsdk": "node_modules/typescript/lib"
 }
