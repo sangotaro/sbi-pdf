@@ -7,7 +7,7 @@ import expandTilde from "expand-tilde";
 import pLimit from "p-limit";
 import yargs from "yargs";
 
-import { extract } from "./table-extractors/gaikoku-kabushiki-haito";
+import { extract } from "./extract";
 
 const readdir = promisify(fs.readdir);
 
@@ -57,7 +57,7 @@ const readdir = promisify(fs.readdir);
   }
   // values
   results.forEach((result) => {
-    result.forEach((tables) => {
+    result.forEach((tables: any) => {
       console.log(
         [...Object.values(tables[0]), ...Object.values(tables[1])].join(",")
       );

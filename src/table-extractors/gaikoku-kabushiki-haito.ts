@@ -1,11 +1,3 @@
-import childProcess from "child_process";
-import path from "path";
-import { promisify } from "util";
-
-const exec = promisify(childProcess.exec);
-
-const dirname = path.dirname(new URL(import.meta.url).pathname);
-
 // 文字列内に半角スペースが入ることがある
 function purifyInt(str: string): string {
   return str.trim().replace(",", "").replace(/\s+/g, "");
@@ -63,24 +55,8 @@ export type Tables = [
   }
 ];
 
-export async function extract(pdfFile: string): Promise<Tables[]> {
-  const jar = path.join(
-    dirname,
-    "../../lib/tabula-1.0.4-jar-with-dependencies.jar"
-  );
-  const { stdout } = await exec(
-    `java -jar ${jar} -g -l -f JSON -p all ${pdfFile}`
-  );
-  const tables = JSON.parse(stdout);
-
-  console.log(`PDF (${pdfFile}) 内のテーブル数: ${tables.length}`);
-  if (tables.length % 2 !== 0) {
-    console.error("テーブル数は偶数を想定しています");
-    process.exit(1);
-  }
-
-  // TODO: バリデーション
-
+// TODO: any やめる
+export async function extract(tables: any[]): Promise<Tables[]> {
   // 2つ1組のグループにする
   const groups = (tables as any[]).reduce((result, table: any) => {
     const lastIndex = result.length - 1;
