@@ -9,7 +9,7 @@
     "fix": "prettier --write src"
   },
   "dependencies": {
-    "ajv": "^6.12.6",
+    "ajv": "6.12.6",
     "expand-tilde": "2.0.2",
     "p-limit": "2.3.0",
     "yargs": "15.4.1"
