@@ -8,6 +8,8 @@ import pLimit from "p-limit";
 import yargs from "yargs";
 
 import { extract } from "./extract";
+import { ForeignStockDividendData } from "./files/foreign-stock-dividend";
+import { ForeignStockDividend } from "./files/foreign-stock-dividend/index";
 
 const readdir = promisify(fs.readdir);
 
@@ -42,25 +44,26 @@ const readdir = promisify(fs.readdir);
   }
   console.log("PDF: ", files);
 
-  // render csv
   const limit = pLimit(os.cpus().length - 1);
   const results = await Promise.all(files.map((f) => limit(() => extract(f))));
+  const groupByType = results.reduce<{
+    foreignStockDividend: ForeignStockDividendData[];
+  }>(
+    (accumulator, result) => {
+      if (result.type === "foreign_stock_dividend") {
+        return {
+          ...accumulator,
+          foreignStockDividend: [
+            ...accumulator.foreignStockDividend,
+            ...result.data,
+          ],
+        };
+      }
+      return accumulator;
+    },
+    { foreignStockDividend: [] }
+  );
+
   console.log("\n--- RENDER CSV ---\n");
-  // headers
-  if (results[0]) {
-    const tables = results[0][0];
-    if (tables && tables[0] && tables[1]) {
-      console.log(
-        [...Object.keys(tables[0]), ...Object.keys(tables[1])].join(",")
-      );
-    }
-  }
-  // values
-  results.forEach((result) => {
-    result.forEach((tables: any) => {
-      console.log(
-        [...Object.values(tables[0]), ...Object.values(tables[1])].join(",")
-      );
-    });
-  });
+  ForeignStockDividend.renderCsv(groupByType.foreignStockDividend);
 })();
