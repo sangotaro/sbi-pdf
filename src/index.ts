@@ -14,7 +14,7 @@ import { ForeignStockDividend } from "./files/foreign-stock-dividend/index";
 const readdir = promisify(fs.readdir);
 
 (async () => {
-  const argv = yargs.option("dir", {
+  const argv = yargs(process.argv).option("dir", {
     type: "string",
     description: "PDF のディレクトリ",
     demandOption: true,
