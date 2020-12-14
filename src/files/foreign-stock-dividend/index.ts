@@ -1,14 +1,10 @@
-// 文字列内に半角スペースが入ることがある
-function purifyInt(str: string): string {
-  return str.trim().replace(",", "").replace(/\s+/g, "");
-}
+import Ajv from "ajv";
 
-// 文字列内に半角スペースが入ることがある
-function purifyFloat(str: string): string {
-  return str.trim().replace(",", "").replace(/\s+/g, "");
-}
+import { purifyFloat } from "../../utils/raw-table/purify-float";
+import { purifyInt } from "../../utils/raw-table/purify-int";
+import { schema } from "./schema";
 
-export type Tables = [
+export type ForeignStockDividendData = [
   {
     配当金等支払日: string;
     国内支払日: string;
@@ -55,8 +51,28 @@ export type Tables = [
   }
 ];
 
+function isRawTables(tables: unknown): boolean {
+  if (!Array.isArray(tables)) {
+    return false;
+  }
+  if (tables.length % 2 !== 0) {
+    return false;
+  }
+  const ajv = new Ajv();
+  for (const [index, table] of tables.entries()) {
+    const validate = ajv.compile(
+      index % 2 === 0 ? schema.table0 : schema.table1
+    );
+    const valid = validate(table.data);
+    if (!valid) {
+      return false;
+    }
+  }
+  return true;
+}
+
 // TODO: any やめる
-export async function extract(tables: any[]): Promise<Tables[]> {
+function extract(tables: any[]): ForeignStockDividendData[] {
   // 2つ1組のグループにする
   const groups = (tables as any[]).reduce((result, table: any) => {
     const lastIndex = result.length - 1;
@@ -120,3 +136,23 @@ export async function extract(tables: any[]): Promise<Tables[]> {
     ];
   });
 }
+
+function renderCsv(foreignStockDividend: ForeignStockDividendData[]): void {
+  // header
+  const data = foreignStockDividend[0];
+  if (data && data[0] && data[1]) {
+    console.log([...Object.keys(data[0]), ...Object.keys(data[1])].join(","));
+  }
+  // values
+  foreignStockDividend.forEach((data) => {
+    console.log(
+      [...Object.values(data[0]), ...Object.values(data[1])].join(",")
+    );
+  });
+}
+
+export const ForeignStockDividend = {
+  isRawTables,
+  extract,
+  renderCsv,
+};
