@@ -777,7 +777,7 @@ const table1 = {
             left: { type: "number", minimum: 0 },
             width: { type: "number", minimum: 0 },
             height: { type: "number", minimum: 0 },
-            text: { const: "申告レート基準日" },
+            text: { enum: ["申告レート基準日", "告レート基準日"] }, // TODO: "申" が欠けることがある
           },
           required: ["top", "left", "width", "height", "text"],
           additionalProperties: false,
@@ -893,7 +893,7 @@ const table1 = {
             left: { type: "number", minimum: 0 },
             width: { type: "number", minimum: 0 },
             height: { type: "number", minimum: 0 },
-            text: { const: "為替レート基準日" },
+            text: { enum: ["為替レート基準日", "替レート基準日"] }, // TODO: "為" が欠けることがある
           },
           required: ["top", "left", "width", "height", "text"],
           additionalProperties: false,

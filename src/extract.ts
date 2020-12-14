@@ -26,6 +26,9 @@ export async function extract(pdfFile: string): Promise<Result> {
     `java -jar ${jar} -g -l -f JSON -p all ${pdfFile}`
   );
   const tables = JSON.parse(stdout);
+  console.log(`PDF (${pdfFile}) 内のテーブル数: ${tables.length}`);
+
+  // TODO: ファイルに対して想定しているデータ数が抽出できているか確認する
 
   if (ForeignStockDividend.isRawTables(tables)) {
     return {
