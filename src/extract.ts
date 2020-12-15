@@ -33,7 +33,7 @@ export async function extract(pdfFile: string): Promise<Result> {
   if (ForeignStockDividend.isRawTables(tables)) {
     return {
       type: "foreign_stock_dividend",
-      data: await ForeignStockDividend.extract(tables),
+      data: await ForeignStockDividend.extractFromRawTables(tables),
     };
   }
   return { type: "unknown" };
