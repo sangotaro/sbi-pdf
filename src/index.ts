@@ -8,8 +8,10 @@ import pLimit from "p-limit";
 import yargs from "yargs";
 
 import { extract } from "./extract";
-import { ForeignStockDividendData } from "./files/foreign-stock-dividend";
-import { ForeignStockDividend } from "./files/foreign-stock-dividend/index";
+import {
+  ForeignStockDividend,
+  ForeignStockDividendData,
+} from "./files/foreign-stock-dividend";
 
 const readdir = promisify(fs.readdir);
 
