@@ -5,7 +5,7 @@ import { promisify } from "util";
 import { ForeignStockDividend } from "./files/foreign-stock-dividend";
 import type { ForeignStockDividendData } from "./files/foreign-stock-dividend";
 
-const dirname = path.dirname(new URL(import.meta.url).pathname);
+const dirname = __dirname;
 const exec = promisify(childProcess.exec);
 
 type Result =
