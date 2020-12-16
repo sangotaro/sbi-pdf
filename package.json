@@ -2,7 +2,7 @@
   "name": "sbi-pdf",
   "version": "1.0.0",
   "private": true,
-  "type": "module",
+  "type": "commonjs",
   "scripts": {
     "build": "tsc",
     "lint": "eslint --ext .ts src",

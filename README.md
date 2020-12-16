@@ -1,6 +1,6 @@
 # sbi-pdf
 
-SBI証券の電子交付書面からデータ抽出する
+SBI 証券の電子交付書面からデータ抽出する
 
 ## 対応電子交付
 
@@ -27,11 +27,8 @@ SBI証券の電子交付書面からデータ抽出する
 ```
 npm i --no-save
 
-# Node.js v14
-node --experimental-specifier-resolution=node --loader ts-node/esm src/index --dir=[pdf-dir]
+npx ts-node src/index --dir=[pdf-dir]
 
 # transpile-only
-node --experimental-specifier-resolution=node --loader ts-node/esm/transpile-only src/index --dir=[pdf-dir]
+npx ts-node --transpile-only src/index --dir=[pdf-dir]
 ```
-
-
