@@ -7,9 +7,9 @@ import {
   ForeignStockDividendData,
 } from "./files/foreign-stock-dividend";
 import {
-  ForeignStockTransaction,
-  ForeignStockTransactionData,
-} from "./files/foreign-stock-transaction";
+  ForeignStockTrading,
+  ForeignStockTradingData,
+} from "./files/foreign-stock-trading";
 
 const dirname = __dirname;
 const exec = promisify(childProcess.exec);
@@ -20,8 +20,8 @@ type Result =
       data: ForeignStockDividendData[];
     }
   | {
-      type: "foreign_stock_transaction";
-      data: ForeignStockTransactionData[];
+      type: "foreign_stock_trading";
+      data: ForeignStockTradingData[];
     }
   | {
       type: "unknown";
@@ -51,14 +51,14 @@ export async function extract(pdfFile: string): Promise<Result> {
       type: "foreign_stock_dividend",
       data,
     };
-  } else if (ForeignStockTransaction.isTables(tables)) {
-    const data = await ForeignStockTransaction.extractFromTables(tables);
+  } else if (ForeignStockTrading.isTables(tables)) {
+    const data = await ForeignStockTrading.extractFromTables(tables);
     console.log(
-      `=> ForeignStockTransaction 抽出データセット数: ${data.length} / ${tables.length}`
+      `=> ForeignStockTrading 抽出データセット数: ${data.length} / ${tables.length}`
     );
     console.log(data);
     return {
-      type: "foreign_stock_transaction",
+      type: "foreign_stock_trading",
       data,
     };
   }
