@@ -1,0 +1,30 @@
+// TODO: number や Date を使う
+export type ForeignStockTransactionData = {
+  国内約定年月日: string;
+  現地約定年月日: string;
+  国内受渡年月日: string;
+  現地受渡年月日: string;
+  銘柄コード: string;
+  銘柄名: string;
+  取引の種類: string;
+  取引通貨: string;
+  売買: string;
+  決済方法: string;
+  "自己・委託": string;
+  為替レート: string;
+  市場: string;
+  口座区分: string;
+  約定数量: string;
+  約定価格: string;
+  約定金額: string;
+  現地手数料等: string;
+  "現地精算金額(外貨)": string;
+  "現地精算金額(円貨)": string;
+  "国内手数料(外貨)": string;
+  "国内手数料(円貨)": string;
+  "消費税(外貨)": string;
+  "消費税(円貨)": string;
+  "受渡金額(外貨)": string;
+  "受渡金額(円貨)": string;
+  備考: string;
+};

@@ -1,3 +1,4 @@
+// TODO: number や Date を使う
 export type ForeignStockDividendData = [
   {
     配当金等支払日: string;
