@@ -10,9 +10,12 @@ import {
   ForeignStockTrading,
   ForeignStockTradingData,
 } from "./files/foreign-stock-trading";
+import { BaseError } from "./utils/error";
 
 const dirname = __dirname;
 const exec = promisify(childProcess.exec);
+
+export class ExtractError extends BaseError {}
 
 type Result =
   | {
@@ -38,8 +41,6 @@ export async function extract(pdfFile: string): Promise<Result> {
   const tables = JSON.parse(stdout);
   console.log(`PDF (${pdfFile}) 内のテーブル数: ${tables.length}`);
 
-  // TODO: ファイルに対して想定しているデータ数が抽出できているか確認する
-
   if (ForeignStockDividend.isRawTables(tables)) {
     const data = await ForeignStockDividend.extractFromRawTables(tables);
     console.log(
@@ -47,6 +48,11 @@ export async function extract(pdfFile: string): Promise<Result> {
         tables.length / 2
       }`
     );
+    if (data.length > tables.length) {
+      throw new ExtractError(
+        `ForeignStockDividend: 抽出データセット数が不足しています`
+      );
+    }
     return {
       type: "foreign_stock_dividend",
       data,
@@ -56,7 +62,11 @@ export async function extract(pdfFile: string): Promise<Result> {
     console.log(
       `=> ForeignStockTrading 抽出データセット数: ${data.length} / ${tables.length}`
     );
-    console.log(data);
+    if (data.length > tables.length) {
+      throw new ExtractError(
+        `ForeignStockTrading: 抽出データセット数が不足しています`
+      );
+    }
     return {
       type: "foreign_stock_trading",
       data,

@@ -7,7 +7,7 @@ import expandTilde from "expand-tilde";
 import pLimit from "p-limit";
 import yargs from "yargs";
 
-import { extract } from "./extract";
+import { ExtractError, extract } from "./extract";
 import {
   ForeignStockDividend,
   ForeignStockDividendData,
@@ -48,7 +48,15 @@ const readdir = promisify(fs.readdir);
   console.log("PDF: ", files);
 
   const limit = pLimit(os.cpus().length - 1);
-  const results = await Promise.all(files.map((f) => limit(() => extract(f))));
+  let results;
+  try {
+    results = await Promise.all(files.map((f) => limit(() => extract(f))));
+  } catch (e) {
+    if (e instanceof ExtractError) {
+      console.error(`[error] ${e.message}`);
+    }
+    process.exit(1);
+  }
   const groupByType = results.reduce<{
     foreignStockDividend: ForeignStockDividendData[];
   }>(
