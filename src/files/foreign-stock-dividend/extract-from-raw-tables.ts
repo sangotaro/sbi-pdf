@@ -33,24 +33,24 @@ export function extractFromRawTables(
           "外国源泉税率(%)": purifyFloat(table1.data[3][1].text),
           "1単位あたり金額": purifyFloat(table1.data[3][2].text),
           決済方法: table1.data[3][3].text,
-          円貨決済用レート: purifyFloat(table1.data[3][4].text),
+          円貨決済用レート: purifyFloat(table1.data[3][4].text), // TODO: nullable ?
           口座区分: table1.data[3][5].text,
           勘定設定年: table1.data[3][6].text,
-          備考: table1.data[3][7].text,
+          備考: table1.data[3][7].text, // TODO: nullable ?
           数量: purifyInt(table1.data[5][0].text),
           配当金等金額: purifyFloat(table1.data[5][1].text),
           外国源泉徴収税額: purifyFloat(table1.data[5][2].text),
           外国手数料: purifyFloat(table1.data[5][3].text),
-          "外国精算金額(外貨)": purifyFloat(table1.data[5][5].text),
-          "外国精算金額(円貨)": purifyInt(table1.data[6][1].text),
-          "国内源泉徴収税額(外貨)": purifyFloat(table1.data[5][6].text),
-          "国内源泉徴収税額(円貨)": purifyInt(table1.data[6][2].text),
-          "国内手数料(外貨)": purifyFloat(table1.data[5][7].text),
-          "国内手数料(円貨)": purifyInt(table1.data[6][3].text),
-          "消費税(外貨)": purifyFloat(table1.data[5][8].text),
-          "消費税(円貨)": purifyInt(table1.data[6][4].text),
-          "受取金額(外貨)": purifyFloat(table1.data[5][9].text),
-          "受取金額(円貨)": purifyInt(table1.data[6][5].text),
+          "外国精算金額(外貨)": purifyFloat(table1.data[5][5].text), // TODO: nullable ?
+          "外国精算金額(円貨)": purifyInt(table1.data[6][1].text), // TODO: nullable ?
+          "国内源泉徴収税額(外貨)": purifyFloat(table1.data[5][6].text), // TODO: nullable ?
+          "国内源泉徴収税額(円貨)": purifyInt(table1.data[6][2].text), // TODO: nullable ?
+          "国内手数料(外貨)": purifyFloat(table1.data[5][7].text), // TODO: nullable ?
+          "国内手数料(円貨)": purifyInt(table1.data[6][3].text), // TODO: nullable ?
+          "消費税(外貨)": purifyFloat(table1.data[5][8].text), // TODO: nullable ?
+          "消費税(円貨)": purifyInt(table1.data[6][4].text), // TODO: nullable ?
+          "受取金額(外貨)": purifyFloat(table1.data[5][9].text), // TODO: nullable ?
+          "受取金額(円貨)": purifyInt(table1.data[6][5].text), // TODO: nullable ?
         },
         {
           申告レート基準日: table2.data[2][0].text,
@@ -64,8 +64,8 @@ export function extractFromRawTables(
           "所得税(円貨)": purifyInt(table2.data[3][3].text),
           "地方税(外貨)": purifyFloat(table2.data[2][7].text),
           "地方税(円貨)": purifyInt(table2.data[3][4].text),
-          "国内源泉徴収税額(外貨)": purifyFloat(table2.data[2][8].text),
-          "国内源泉徴収税額(円貨)": purifyInt(table2.data[3][5].text),
+          "国内源泉徴収税額(外貨)": purifyFloat(table2.data[2][8].text), // TODO: nullable ?
+          "国内源泉徴収税額(円貨)": purifyInt(table2.data[3][5].text), // TODO: nullable
         },
       ];
     }
