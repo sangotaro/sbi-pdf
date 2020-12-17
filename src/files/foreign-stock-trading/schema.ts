@@ -88,7 +88,7 @@ type TableData = [
     CellData<"約定数量">,
     CellData<"約定価格">,
     CellData<"約定金額">,
-    CellData<"現地手数料等">,
+    CellData<"現地手数料等" | "地手数料等">,
     CellData<"現地精算金額">,
     CellData<"国内手数料">,
     CellData<"消費税">,
@@ -1002,7 +1002,7 @@ const table: JSONSchemaType<Table> = {
                 left: { type: "number", minimum: 0 },
                 width: { type: "number", minimum: 0 },
                 height: { type: "number", minimum: 0 },
-                text: { type: "string", const: "現地手数料等" },
+                text: { type: "string", enum: ["現地手数料等", "地手数料等"] }, // TODO: "現" が欠けることがある
               },
               required: ["top", "left", "width", "height", "text"],
               additionalProperties: false,
