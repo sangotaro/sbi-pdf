@@ -1,5 +1,5 @@
 // TODO: number や Date を使う
-export type ForeignStockTransactionData = {
+export type ForeignStockTradingData = {
   国内約定年月日: string;
   現地約定年月日: string;
   国内受渡年月日: string;
