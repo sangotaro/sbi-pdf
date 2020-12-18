@@ -17,7 +17,7 @@ const exec = promisify(childProcess.exec);
 
 export class ExtractError extends BaseError {}
 
-type Result =
+export type ExtractResult =
   | {
       type: "foreign_stock_dividend";
       data: ForeignStockDividendData[];
@@ -30,7 +30,7 @@ type Result =
       type: "unknown";
     };
 
-export async function extract(pdfFile: string): Promise<Result> {
+export async function extract(pdfFile: string): Promise<ExtractResult> {
   const jar = path.join(
     dirname,
     "../lib/tabula-1.0.4-jar-with-dependencies.jar"
