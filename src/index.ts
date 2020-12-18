@@ -9,7 +9,7 @@ import yargs from "yargs";
 
 import { ExtractError, extract } from "./extract";
 import { ForeignStockDividend } from "./files/foreign-stock-dividend";
-import { ForeignStockTrading } from "./files/foreign-stock-trading/index";
+import { ForeignStockTrading } from "./files/foreign-stock-trading";
 import { groupByType } from "./group-by-type";
 
 const readdir = promisify(fs.readdir);
