@@ -17,7 +17,7 @@ const exec = promisify(childProcess.exec);
 
 export class ExtractError extends BaseError {}
 
-type Result =
+export type ExtractResult =
   | {
       type: "foreign_stock_dividend";
       data: ForeignStockDividendData[];

@@ -8,10 +8,9 @@ import pLimit from "p-limit";
 import yargs from "yargs";
 
 import { ExtractError, extract } from "./extract";
-import {
-  ForeignStockDividend,
-  ForeignStockDividendData,
-} from "./files/foreign-stock-dividend";
+import { ForeignStockDividend } from "./files/foreign-stock-dividend";
+import { ForeignStockTrading } from "./files/foreign-stock-trading/index";
+import { groupByType } from "./group-by-type";
 
 const readdir = promisify(fs.readdir);
 
@@ -48,33 +47,25 @@ const readdir = promisify(fs.readdir);
   console.log("PDF: ", files);
 
   const limit = pLimit(os.cpus().length - 1);
-  let results;
+  let dataByType;
   try {
-    results = await Promise.all(files.map((f) => limit(() => extract(f))));
+    dataByType = groupByType(
+      await Promise.all(files.map((f) => limit(() => extract(f))))
+    );
   } catch (e) {
     if (e instanceof ExtractError) {
       console.error(`[error] ${e.message}`);
     }
     process.exit(1);
   }
-  const groupByType = results.reduce<{
-    foreignStockDividend: ForeignStockDividendData[];
-  }>(
-    (accumulator, result) => {
-      if (result.type === "foreign_stock_dividend") {
-        return {
-          ...accumulator,
-          foreignStockDividend: [
-            ...accumulator.foreignStockDividend,
-            ...result.data,
-          ],
-        };
-      }
-      return accumulator;
-    },
-    { foreignStockDividend: [] }
-  );
 
   console.log("\n--- RENDER CSV ---\n");
-  ForeignStockDividend.renderCsv(groupByType.foreignStockDividend);
+  if (dataByType.foreignStockDividend.length > 0) {
+    console.log("\n外国株式等配当金\n");
+    ForeignStockDividend.renderCsv(dataByType.foreignStockDividend);
+  }
+  if (dataByType.foreignStockTrading.length > 0) {
+    console.log("\n外国株式等取引報告書\n");
+    ForeignStockTrading.renderCsv(dataByType.foreignStockTrading);
+  }
 })();
