@@ -30,7 +30,7 @@ export type ExtractResult =
       type: "unknown";
     };
 
-export async function extract(pdfFile: string): Promise<Result> {
+export async function extract(pdfFile: string): Promise<ExtractResult> {
   const jar = path.join(
     dirname,
     "../lib/tabula-1.0.4-jar-with-dependencies.jar"
