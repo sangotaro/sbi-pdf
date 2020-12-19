@@ -1,8 +1,5 @@
-import {
-  purifyFloat,
-  purifyFloatString,
-} from "../../utils/raw-table/purify-float";
-import { purifyInt, purifyIntString } from "../../utils/raw-table/purify-int";
+import { purifyFloat } from "../../utils/raw-table/purify-float";
+import { purifyInt } from "../../utils/raw-table/purify-int";
 import { Table } from "./schema";
 import { ForeignStockTradingData } from "./types";
 
