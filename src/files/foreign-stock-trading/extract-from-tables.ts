@@ -1,5 +1,8 @@
-import { purifyFloat } from "../../utils/raw-table/purify-float";
-import { purifyInt } from "../../utils/raw-table/purify-int";
+import {
+  purifyFloat,
+  purifyFloatString,
+} from "../../utils/raw-table/purify-float";
+import { purifyInt, purifyIntString } from "../../utils/raw-table/purify-int";
 import { Table } from "./schema";
 import { ForeignStockTradingData } from "./types";
 
@@ -31,7 +34,7 @@ export function extractFromTables(tables: Table[]): ForeignStockTradingData[] {
     "消費税(円貨)": purifyInt(table.data[7][3].text),
     "受渡金額(外貨)": purifyFloat(table.data[6][8].text), // TODO: nullable ?
     "受渡金額(円貨)":
-      table.data[7][4].text === "" ? "" : purifyInt(table.data[7][4].text), // TODO: nullable
-    備考: table.data[6][9].text,
+      table.data[7][4].text === "" ? null : purifyInt(table.data[7][4].text),
+    備考: table.data[6][9].text === "" ? null : table.data[6][9].text,
   }));
 }
