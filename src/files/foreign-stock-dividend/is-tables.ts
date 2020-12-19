@@ -2,7 +2,7 @@ import Ajv from "ajv";
 
 import { schema } from "./schema";
 
-export function isRawTables(tables: unknown): boolean {
+export function isTables(tables: unknown): boolean {
   if (!Array.isArray(tables)) {
     return false;
   }
