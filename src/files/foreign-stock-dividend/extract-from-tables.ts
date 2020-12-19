@@ -3,9 +3,7 @@ import { purifyIntString } from "../../utils/raw-table/purify-int";
 import { ForeignStockDividendData } from "./types";
 
 // TODO: any やめる
-export function extractFromRawTables(
-  tables: any[]
-): ForeignStockDividendData[] {
+export function extractFromTables(tables: any[]): ForeignStockDividendData[] {
   // 2つ1組のグループにする
   const groups = (tables as any[]).reduce((result, table: any) => {
     const lastIndex = result.length - 1;

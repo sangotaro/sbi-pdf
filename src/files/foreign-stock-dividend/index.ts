@@ -1,4 +1,4 @@
-import { extractFromRawTables as extractFromTables } from "./extract-from-tables";
+import { extractFromTables } from "./extract-from-tables";
 import { isTables } from "./is-tables";
 import { renderCsv } from "./render-csv";
 
