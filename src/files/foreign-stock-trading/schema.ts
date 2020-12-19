@@ -10,8 +10,8 @@ type CellData<T> = {
 
 type TableData = [
   [
-    CellData<"国内約定年月">,
-    CellData<"国内受渡年月">,
+    CellData<"国内約定年月日" | "国内約定年月">,
+    CellData<"国内受渡年月日" | "国内受渡年月">,
     CellData<"銘柄コード">,
     CellData<"取引の種類">,
     CellData<"売買">,
@@ -25,8 +25,8 @@ type TableData = [
     CellData<"">
   ],
   [
-    CellData<"現地約定年月">,
-    CellData<"現地受渡年月日">,
+    CellData<"現地約定年月日" | "現地約定年月">,
+    CellData<"現地受渡年月日" | "現地受渡年月" | "地受渡年月日">,
     CellData<"銘 柄 名">,
     CellData<"取引通貨">,
     CellData<"決済方法">,
@@ -151,7 +151,10 @@ const table: JSONSchemaType<Table> = {
                 left: { type: "number", minimum: 0 },
                 width: { type: "number", minimum: 0 },
                 height: { type: "number", minimum: 0 },
-                text: { type: "string", const: "国内約定年月" },
+                text: {
+                  type: "string",
+                  enum: ["国内約定年月日", "国内約定年月"], // TODO: "日" が欠けることがある
+                },
               },
               required: ["top", "left", "width", "height", "text"],
               additionalProperties: false,
@@ -163,7 +166,10 @@ const table: JSONSchemaType<Table> = {
                 left: { type: "number", minimum: 0 },
                 width: { type: "number", minimum: 0 },
                 height: { type: "number", minimum: 0 },
-                text: { type: "string", const: "国内受渡年月" },
+                text: {
+                  type: "string",
+                  enum: ["国内受渡年月日", "国内受渡年月"], // TODO: "日" が欠けることがある
+                },
               },
               required: ["top", "left", "width", "height", "text"],
               additionalProperties: false,
@@ -314,7 +320,10 @@ const table: JSONSchemaType<Table> = {
                 left: { type: "number", minimum: 0 },
                 width: { type: "number", minimum: 0 },
                 height: { type: "number", minimum: 0 },
-                text: { type: "string", const: "現地約定年月" },
+                text: {
+                  type: "string",
+                  enum: ["現地約定年月日", "現地約定年月"], // TODO: "日" が欠けることがある
+                },
               },
               required: ["top", "left", "width", "height", "text"],
               additionalProperties: false,
@@ -326,7 +335,10 @@ const table: JSONSchemaType<Table> = {
                 left: { type: "number", minimum: 0 },
                 width: { type: "number", minimum: 0 },
                 height: { type: "number", minimum: 0 },
-                text: { type: "string", const: "現地受渡年月日" },
+                text: {
+                  type: "string",
+                  enum: ["現地受渡年月日", "現地受渡年月", "地受渡年月日"], // TODO: "現" と "日" が欠けることがある
+                },
               },
               required: ["top", "left", "width", "height", "text"],
               additionalProperties: false,
@@ -1002,7 +1014,10 @@ const table: JSONSchemaType<Table> = {
                 left: { type: "number", minimum: 0 },
                 width: { type: "number", minimum: 0 },
                 height: { type: "number", minimum: 0 },
-                text: { type: "string", enum: ["現地手数料等", "地手数料等"] }, // TODO: "現" が欠けることがある
+                text: {
+                  type: "string",
+                  enum: ["現地手数料等", "地手数料等"], // TODO: "現" が欠けることがある
+                },
               },
               required: ["top", "left", "width", "height", "text"],
               additionalProperties: false,
