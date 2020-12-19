@@ -41,8 +41,8 @@ export async function extract(pdfFile: string): Promise<ExtractResult> {
   const tables = JSON.parse(stdout);
   console.log(`PDF (${pdfFile}) 内のテーブル数: ${tables.length}`);
 
-  if (ForeignStockDividend.isRawTables(tables)) {
-    const data = await ForeignStockDividend.extractFromRawTables(tables);
+  if (ForeignStockDividend.isTables(tables)) {
+    const data = await ForeignStockDividend.extractFromTables(tables);
     console.log(
       `=> ForeignStockDividend 抽出データセット数: ${data.length} / ${
         tables.length / 2
