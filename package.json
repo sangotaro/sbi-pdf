@@ -6,7 +6,7 @@
   "scripts": {
     "build": "run-p build:*",
     "build:ts": "tsc",
-    "build:gradle": "pushd tabula && ./gradlew shadowJar && popd",
+    "build:gradle": "cd tabula && ./gradlew shadowJar && cd ..",
     "lint": "eslint --ext .ts src",
     "fix": "prettier --write src"
   },
