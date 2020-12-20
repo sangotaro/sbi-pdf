@@ -1,8 +1,12 @@
 import Ajv from "ajv";
 
-import { schema } from "./schema";
+import { Table0, Table1, schema } from "./schema";
 
-export function isTables(tables: unknown): boolean {
+/**
+ * TODO: [Table0, Table1, ...] のような交互配列は typescript で表現できない
+ * File として構造化した方がいいかも
+ */
+export function isTables(tables: unknown): tables is (Table0 | Table1)[] {
   if (!Array.isArray(tables)) {
     return false;
   }
@@ -14,8 +18,9 @@ export function isTables(tables: unknown): boolean {
     const validate = ajv.compile(
       index % 2 === 0 ? schema.table0 : schema.table1
     );
-    const valid = validate(table.data);
+    const valid = validate(table);
     if (!valid) {
+      // console.log(validate.errors);
       return false;
     }
   }
