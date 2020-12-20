@@ -5,6 +5,7 @@
   "type": "commonjs",
   "scripts": {
     "build": "tsc",
+    "build:gradle": "pushd tabula && ./gradlew shadowJar && popd",
     "lint": "eslint --ext .ts src",
     "fix": "prettier --write src"
   },
