@@ -32,9 +32,16 @@ type Result =
 
 export async function extract(pdfFile: string): Promise<Result> {
   const jar = path.join(dirname, "../tabula/build/libs/tabula-all.jar");
-  const { stdout } = await exec(
-    `java -jar ${jar} -g -l -f JSON -p all ${pdfFile}`
-  );
+  let stdout;
+  try {
+    const result = await exec(
+      `java -jar ${jar} -g -l -f JSON -p all ${pdfFile}`
+    );
+    stdout = result.stdout;
+  } catch (e) {
+    console.log(e);
+    process.exit(1);
+  }
   const tables = JSON.parse(stdout);
   console.log(`PDF (${pdfFile}) 内のテーブル数: ${tables.length}`);
 
