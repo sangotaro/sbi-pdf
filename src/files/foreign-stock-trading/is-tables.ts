@@ -11,8 +11,7 @@ export function isTables(tables: unknown): tables is Table[] {
     const validate = ajv.compile(schema.table);
     const valid = validate(table);
     if (!valid) {
-      // TODO: debug code
-      console.log(validate.errors);
+      // console.log(validate.errors);
       return false;
     }
   }
