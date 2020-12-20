@@ -1,4 +1,6 @@
-import { ExtractResult } from "./extract";
+import { PromiseType } from "utility-types";
+
+import type { extract } from "./extract";
 import { ForeignStockDividendData } from "./files/foreign-stock-dividend";
 import { ForeignStockTradingData } from "./files/foreign-stock-trading/types";
 
@@ -7,7 +9,9 @@ type Result = {
   foreignStockTrading: ForeignStockTradingData[];
 };
 
-export function groupByType(results: ExtractResult[]): Result {
+export function groupByType(
+  results: PromiseType<ReturnType<typeof extract>>[]
+): Result {
   return results.reduce<Result>(
     (accumulator, result) => {
       if (result.type === "foreign_stock_dividend") {
