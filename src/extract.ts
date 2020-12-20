@@ -31,10 +31,7 @@ type Result =
     };
 
 export async function extract(pdfFile: string): Promise<Result> {
-  const jar = path.join(
-    dirname,
-    "../lib/tabula-1.0.4-jar-with-dependencies.jar"
-  );
+  const jar = path.join(dirname, "../tabula/build/libs/tabula-all.jar");
   const { stdout } = await exec(
     `java -jar ${jar} -g -l -f JSON -p all ${pdfFile}`
   );
