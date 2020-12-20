@@ -1,5 +1,5 @@
 // 文字列内に半角スペースが入ることがある
-export function purifyFloatString(str: string): string {
+function purifyFloatString(str: string): string {
   return str.trim().replace(",", "").replace(/\s+/g, "");
 }
 
