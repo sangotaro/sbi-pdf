@@ -1,7 +1,3 @@
-import childProcess from "child_process";
-import path from "path";
-import { promisify } from "util";
-
 import {
   ForeignStockDividend,
   ForeignStockDividendData,
@@ -12,9 +8,6 @@ import {
 } from "./files/foreign-stock-trading";
 import { tabula } from "./tabula";
 import { BaseError } from "./utils/error";
-
-const dirname = __dirname;
-const exec = promisify(childProcess.exec);
 
 export class ExtractError extends BaseError {}
 
