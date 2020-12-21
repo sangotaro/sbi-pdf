@@ -1,7 +1,3 @@
-import childProcess from "child_process";
-import path from "path";
-import { promisify } from "util";
-
 import {
   ForeignStockDividend,
   ForeignStockDividendData,
@@ -10,10 +6,8 @@ import {
   ForeignStockTrading,
   ForeignStockTradingData,
 } from "./files/foreign-stock-trading";
+import { tabula } from "./tabula";
 import { BaseError } from "./utils/error";
-
-const dirname = __dirname;
-const exec = promisify(childProcess.exec);
 
 export class ExtractError extends BaseError {}
 
@@ -31,18 +25,14 @@ type Result =
     };
 
 export async function extract(pdfFile: string): Promise<Result> {
-  const jar = path.join(dirname, "../tabula/build/libs/tabula-all.jar");
-  let stdout;
+  let result;
   try {
-    const result = await exec(
-      `java -jar ${jar} -g -l -f JSON -p all ${pdfFile}`
-    );
-    stdout = result.stdout;
+    result = await tabula(`-g -l -f JSON -p all ${pdfFile}`);
   } catch (e) {
     console.log(e);
     process.exit(1);
   }
-  const tables = JSON.parse(stdout);
+  const tables = JSON.parse(result);
   console.log(`PDF (${pdfFile}) 内のテーブル数: ${tables.length}`);
 
   if (ForeignStockDividend.isTables(tables)) {
