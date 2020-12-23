@@ -26,11 +26,17 @@ SBI 証券の電子交付書面からデータ抽出する
 
 - Java: [tabula-java](https://github.com/tabulapdf/tabula-java) を実行している
 
-## Run
+## Build
 
 ```
 npm i --no-save
 
+npm run build
+```
+
+## Run
+
+```
 npx ts-node src/index --dir=[pdf-dir]
 
 # transpile-only
