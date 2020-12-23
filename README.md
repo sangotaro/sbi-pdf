@@ -1,5 +1,7 @@
 # sbi-pdf
 
+[![codecov](https://codecov.io/gh/sangotaro/sbi-pdf/branch/master/graph/badge.svg?token=GMETK1D3WI)](https://codecov.io/gh/sangotaro/sbi-pdf)
+
 SBI 証券の電子交付書面からデータ抽出する
 
 ## 対応電子交付
