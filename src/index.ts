@@ -7,9 +7,9 @@ import expandTilde from "expand-tilde";
 import pLimit from "p-limit";
 import yargs from "yargs";
 
+import { ForeignStockDividend } from "./e-deliveries/foreign-stock-dividend";
+import { ForeignStockTrading } from "./e-deliveries/foreign-stock-trading";
 import { ExtractError, extract } from "./extract";
-import { ForeignStockDividend } from "./files/foreign-stock-dividend";
-import { ForeignStockTrading } from "./files/foreign-stock-trading";
 import { groupByType } from "./group-by-type";
 
 const readdir = promisify(fs.readdir);

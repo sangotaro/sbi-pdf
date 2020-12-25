@@ -1,7 +1,7 @@
 import assert from "assert";
 
-import { ForeignStockTradingData } from "./../files/foreign-stock-trading/types";
-import { ForeignStockDividendData } from "../files/foreign-stock-dividend";
+import { ForeignStockDividendData } from "../e-deliveries/foreign-stock-dividend";
+import { ForeignStockTradingData } from "../e-deliveries/foreign-stock-trading";
 import { groupByType } from "../group-by-type";
 
 const foreignStockDividendData: ForeignStockDividendData = [
@@ -50,6 +50,7 @@ const foreignStockDividendData: ForeignStockDividendData = [
     "国内源泉徴収税額(円貨)": 0,
   },
 ];
+
 const foreignStockTradingData: ForeignStockTradingData = {
   国内約定年月日: "",
   現地約定年月日: "",
