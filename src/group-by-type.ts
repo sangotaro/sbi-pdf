@@ -1,12 +1,14 @@
 import { PromiseType } from "utility-types";
 
 import { ForeignStockDividendItem } from "./e-deliveries/foreign-stock-dividend";
+import { ForeignStockSplitItem } from "./e-deliveries/foreign-stock-split";
 import { ForeignStockTradingItem } from "./e-deliveries/foreign-stock-trading/types";
 import type { extract } from "./extract";
 
 type Result = {
   foreignStockDividend: ForeignStockDividendItem[];
   foreignStockTrading: ForeignStockTradingItem[];
+  foreignStockSplit: ForeignStockSplitItem[];
 };
 
 export function groupByType(
@@ -30,9 +32,17 @@ export function groupByType(
             ...result.items,
           ],
         };
+      } else if (result.type === "foreign_stock_split") {
+        return {
+          ...accumulator,
+          foreignStockSplit: [
+            ...accumulator.foreignStockSplit,
+            ...result.items,
+          ],
+        };
       }
       return accumulator;
     },
-    { foreignStockDividend: [], foreignStockTrading: [] }
+    { foreignStockDividend: [], foreignStockTrading: [], foreignStockSplit: [] }
   );
 }

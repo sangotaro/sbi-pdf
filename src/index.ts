@@ -8,6 +8,7 @@ import pLimit from "p-limit";
 import yargs from "yargs";
 
 import { ForeignStockDividend } from "./e-deliveries/foreign-stock-dividend";
+import { ForeignStockSplit } from "./e-deliveries/foreign-stock-split";
 import { ForeignStockTrading } from "./e-deliveries/foreign-stock-trading";
 import { ExtractError, extract } from "./extract";
 import { groupByType } from "./group-by-type";
@@ -67,5 +68,9 @@ const readdir = promisify(fs.readdir);
   if (dataByType.foreignStockTrading.length > 0) {
     console.log("\n外国株式等取引報告書\n");
     ForeignStockTrading.renderCsv(dataByType.foreignStockTrading);
+  }
+  if (dataByType.foreignStockSplit.length > 0) {
+    console.log("\n外国株式等 株式分割・権利売却等のご案内\n");
+    ForeignStockSplit.renderCsv(dataByType.foreignStockSplit);
   }
 })();
