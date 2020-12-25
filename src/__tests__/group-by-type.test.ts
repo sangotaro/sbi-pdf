@@ -81,8 +81,8 @@ const foreignStockTradingItem: ForeignStockTradingItem = {
   備考: "",
 };
 
-describe("groupByType", (): void => {
-  test("各データが type ごとに分類される", async (): Promise<void> => {
+describe("groupByType", () => {
+  test("各データが type ごとに分類される", async () => {
     const result = groupByType([
       {
         type: "foreign_stock_dividend",
