@@ -1,6 +1,7 @@
 import assert from "assert";
 
 import { ForeignStockDividendItem } from "../e-deliveries/foreign-stock-dividend";
+import { ForeignStockSplitItem } from "../e-deliveries/foreign-stock-split";
 import { ForeignStockTradingItem } from "../e-deliveries/foreign-stock-trading";
 import { groupByType } from "../group-by-type";
 
@@ -81,6 +82,32 @@ const foreignStockTradingItem: ForeignStockTradingItem = {
   備考: "",
 };
 
+const foreignStockSplitItem: ForeignStockSplitItem = [
+  {
+    国内支払日: "",
+    国内入出庫日: "",
+    銘柄コード: "",
+    銘柄名: "",
+    現地基準日: "",
+    権利の内容: "",
+    取引通貨: "",
+    権利対象数量: 0,
+    "保有数:割当数": "",
+    割当数量: 0,
+    取引単位数: 0,
+  },
+  {
+    銘柄コード: "",
+    銘柄名: "",
+    入出庫区分: "",
+    口座区分: "",
+    権利対象数量: 0,
+    割当数量: 0,
+    入出庫数量: 0,
+    備考: "",
+  },
+];
+
 describe("groupByType", () => {
   test("各データが type ごとに分類される", () => {
     const result = groupByType([
@@ -90,8 +117,10 @@ describe("groupByType", () => {
       },
       { type: "unknown" },
       { type: "foreign_stock_trading", items: [foreignStockTradingItem] },
+      { type: "foreign_stock_split", items: [foreignStockSplitItem] },
     ]);
     assert.strictEqual(result.foreignStockDividend.length, 2);
     assert.strictEqual(result.foreignStockTrading.length, 1);
+    assert.strictEqual(result.foreignStockSplit.length, 1);
   });
 });
