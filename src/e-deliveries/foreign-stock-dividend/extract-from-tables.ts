@@ -1,7 +1,7 @@
 import { purifyFloat } from "../../utils/raw-table/purify-float";
 import { purifyInt } from "../../utils/raw-table/purify-int";
 import { Table0, Table1 } from "./schema";
-import { ForeignStockDividendData } from "./types";
+import { ForeignStockDividendItem } from "./types";
 
 function fail(message: string): never {
   throw new Error(message);
@@ -9,7 +9,7 @@ function fail(message: string): never {
 
 export function extractFromTables(
   tables: (Table0 | Table1)[]
-): ForeignStockDividendData[] {
+): ForeignStockDividendItem[] {
   // 2つ1組のグループにする
   const { groups } = tables.reduce<{
     groups: [Table0, Table1][];
@@ -29,7 +29,7 @@ export function extractFromTables(
   );
 
   return groups.map(
-    (group): ForeignStockDividendData => {
+    (group): ForeignStockDividendItem => {
       const [table0, table1] = group;
       return [
         {

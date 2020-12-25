@@ -1,15 +1,15 @@
-import { ForeignStockTradingData } from "./types";
+import { ForeignStockTradingItem } from "./types";
 
 export function renderCsv(
-  foreignStockTrading: ForeignStockTradingData[]
+  foreignStockTradingItems: ForeignStockTradingItem[]
 ): void {
   // header
-  const data = foreignStockTrading[0];
-  if (data) {
-    console.log([...Object.keys(data)].join(","));
+  const item = foreignStockTradingItems[0];
+  if (item) {
+    console.log([...Object.keys(item)].join(","));
   }
   // values
-  foreignStockTrading.forEach((data) => {
-    console.log([...Object.values(data)].join(","));
+  foreignStockTradingItems.forEach((item) => {
+    console.log([...Object.values(item)].join(","));
   });
 }

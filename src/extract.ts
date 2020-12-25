@@ -1,10 +1,10 @@
 import {
   ForeignStockDividend,
-  ForeignStockDividendData,
+  ForeignStockDividendItem,
 } from "./e-deliveries/foreign-stock-dividend";
 import {
   ForeignStockTrading,
-  ForeignStockTradingData,
+  ForeignStockTradingItem,
 } from "./e-deliveries/foreign-stock-trading";
 import { tabula } from "./tabula";
 import { BaseError } from "./utils/error";
@@ -14,11 +14,11 @@ export class ExtractError extends BaseError {}
 type Result =
   | {
       type: "foreign_stock_dividend";
-      data: ForeignStockDividendData[];
+      items: ForeignStockDividendItem[];
     }
   | {
       type: "foreign_stock_trading";
-      data: ForeignStockTradingData[];
+      items: ForeignStockTradingItem[];
     }
   | {
       type: "unknown";
@@ -36,34 +36,34 @@ export async function extract(pdfFile: string): Promise<Result> {
   console.log(`PDF (${pdfFile}) 内のテーブル数: ${tables.length}`);
 
   if (ForeignStockDividend.isTables(tables)) {
-    const data = await ForeignStockDividend.extractFromTables(tables);
+    const items = await ForeignStockDividend.extractFromTables(tables);
     console.log(
-      `=> ForeignStockDividend 抽出データセット数: ${data.length} / ${
+      `=> ForeignStockDividend 抽出データセット数: ${items.length} / ${
         tables.length / 2
       }`
     );
-    if (data.length > tables.length) {
+    if (items.length > tables.length) {
       throw new ExtractError(
         `ForeignStockDividend: 抽出データセット数が不足しています`
       );
     }
     return {
       type: "foreign_stock_dividend",
-      data,
+      items,
     };
   } else if (ForeignStockTrading.isTables(tables)) {
-    const data = await ForeignStockTrading.extractFromTables(tables);
+    const items = await ForeignStockTrading.extractFromTables(tables);
     console.log(
-      `=> ForeignStockTrading 抽出データセット数: ${data.length} / ${tables.length}`
+      `=> ForeignStockTrading 抽出データセット数: ${items.length} / ${tables.length}`
     );
-    if (data.length > tables.length) {
+    if (items.length > tables.length) {
       throw new ExtractError(
         `ForeignStockTrading: 抽出データセット数が不足しています`
       );
     }
     return {
       type: "foreign_stock_trading",
-      data,
+      items,
     };
   }
   console.warn("=> 不明なファイル");

@@ -1,9 +1,9 @@
 import { purifyFloat } from "../../utils/raw-table/purify-float";
 import { purifyInt } from "../../utils/raw-table/purify-int";
 import { Table } from "./schema";
-import { ForeignStockTradingData } from "./types";
+import { ForeignStockTradingItem } from "./types";
 
-export function extractFromTables(tables: Table[]): ForeignStockTradingData[] {
+export function extractFromTables(tables: Table[]): ForeignStockTradingItem[] {
   return tables.map((table) => ({
     国内約定年月日: table.data[2][0].text,
     現地約定年月日: table.data[3][0].text,
