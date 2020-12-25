@@ -3,6 +3,10 @@ import {
   ForeignStockDividendItem,
 } from "./e-deliveries/foreign-stock-dividend";
 import {
+  ForeignStockSplit,
+  ForeignStockSplitItem,
+} from "./e-deliveries/foreign-stock-split";
+import {
   ForeignStockTrading,
   ForeignStockTradingItem,
 } from "./e-deliveries/foreign-stock-trading";
@@ -19,6 +23,10 @@ type Result =
   | {
       type: "foreign_stock_trading";
       items: ForeignStockTradingItem[];
+    }
+  | {
+      type: "foreign_stock_split";
+      items: ForeignStockSplitItem[];
     }
   | {
       type: "unknown";
@@ -63,6 +71,22 @@ export async function extract(pdfFile: string): Promise<Result> {
     }
     return {
       type: "foreign_stock_trading",
+      items,
+    };
+  } else if (ForeignStockSplit.isTables(tables)) {
+    const items = await ForeignStockSplit.extractFromTables(tables);
+    console.log(
+      `=> ForeignStockSplit 抽出データセット数: ${items.length} / ${
+        tables.length / 2
+      }`
+    );
+    if (items.length > tables.length) {
+      throw new ExtractError(
+        `ForeignStockSplit: 抽出データセット数が不足しています`
+      );
+    }
+    return {
+      type: "foreign_stock_split",
       items,
     };
   }
