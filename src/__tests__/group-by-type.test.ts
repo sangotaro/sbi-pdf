@@ -1,10 +1,10 @@
 import assert from "assert";
 
-import { ForeignStockDividendData } from "../e-deliveries/foreign-stock-dividend";
-import { ForeignStockTradingData } from "../e-deliveries/foreign-stock-trading";
+import { ForeignStockDividendItem } from "../e-deliveries/foreign-stock-dividend";
+import { ForeignStockTradingItem } from "../e-deliveries/foreign-stock-trading";
 import { groupByType } from "../group-by-type";
 
-const foreignStockDividendData: ForeignStockDividendData = [
+const foreignStockDividendItem: ForeignStockDividendItem = [
   {
     配当金等支払日: "",
     国内支払日: "",
@@ -51,7 +51,7 @@ const foreignStockDividendData: ForeignStockDividendData = [
   },
 ];
 
-const foreignStockTradingData: ForeignStockTradingData = {
+const foreignStockTradingItem: ForeignStockTradingItem = {
   国内約定年月日: "",
   現地約定年月日: "",
   国内受渡年月日: "",
@@ -86,10 +86,10 @@ describe("groupByType", (): void => {
     const result = groupByType([
       {
         type: "foreign_stock_dividend",
-        data: [foreignStockDividendData, foreignStockDividendData],
+        items: [foreignStockDividendItem, foreignStockDividendItem],
       },
       { type: "unknown" },
-      { type: "foreign_stock_trading", data: [foreignStockTradingData] },
+      { type: "foreign_stock_trading", items: [foreignStockTradingItem] },
     ]);
     assert.strictEqual(result.foreignStockDividend.length, 2);
     assert.strictEqual(result.foreignStockTrading.length, 1);

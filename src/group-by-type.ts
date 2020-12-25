@@ -1,12 +1,12 @@
 import { PromiseType } from "utility-types";
 
-import { ForeignStockDividendData } from "./e-deliveries/foreign-stock-dividend";
-import { ForeignStockTradingData } from "./e-deliveries/foreign-stock-trading/types";
+import { ForeignStockDividendItem } from "./e-deliveries/foreign-stock-dividend";
+import { ForeignStockTradingItem } from "./e-deliveries/foreign-stock-trading/types";
 import type { extract } from "./extract";
 
 type Result = {
-  foreignStockDividend: ForeignStockDividendData[];
-  foreignStockTrading: ForeignStockTradingData[];
+  foreignStockDividend: ForeignStockDividendItem[];
+  foreignStockTrading: ForeignStockTradingItem[];
 };
 
 export function groupByType(
@@ -19,7 +19,7 @@ export function groupByType(
           ...accumulator,
           foreignStockDividend: [
             ...accumulator.foreignStockDividend,
-            ...result.data,
+            ...result.items,
           ],
         };
       } else if (result.type === "foreign_stock_trading") {
@@ -27,7 +27,7 @@ export function groupByType(
           ...accumulator,
           foreignStockTrading: [
             ...accumulator.foreignStockTrading,
-            ...result.data,
+            ...result.items,
           ],
         };
       }

@@ -1,18 +1,18 @@
-import { ForeignStockDividendData } from "./types";
+import { ForeignStockDividendItem } from "./types";
 
 export function renderCsv(
-  foreignStockDividend: ForeignStockDividendData[]
+  foreignStockDividendItems: ForeignStockDividendItem[]
 ): void {
   // header
   // TODO: ヘッダー名に被りがある
-  const data = foreignStockDividend[0];
-  if (data && data[0] && data[1]) {
-    console.log([...Object.keys(data[0]), ...Object.keys(data[1])].join(","));
+  const item = foreignStockDividendItems[0];
+  if (item && item[0] && item[1]) {
+    console.log([...Object.keys(item[0]), ...Object.keys(item[1])].join(","));
   }
   // values
-  foreignStockDividend.forEach((data) => {
+  foreignStockDividendItems.forEach((item) => {
     console.log(
-      [...Object.values(data[0]), ...Object.values(data[1])].join(",")
+      [...Object.values(item[0]), ...Object.values(item[1])].join(",")
     );
   });
 }

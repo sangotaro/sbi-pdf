@@ -1,5 +1,5 @@
 // TODO: Date を使う
-export type ForeignStockDividendData = [
+export type ForeignStockDividendItem = [
   {
     配当金等支払日: string;
     国内支払日: string;
