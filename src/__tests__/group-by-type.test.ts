@@ -82,7 +82,7 @@ const foreignStockTradingItem: ForeignStockTradingItem = {
 };
 
 describe("groupByType", () => {
-  test("各データが type ごとに分類される", async () => {
+  test("各データが type ごとに分類される", () => {
     const result = groupByType([
       {
         type: "foreign_stock_dividend",
