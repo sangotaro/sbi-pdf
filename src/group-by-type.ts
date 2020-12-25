@@ -1,8 +1,8 @@
 import { PromiseType } from "utility-types";
 
+import { ForeignStockDividendData } from "./e-deliveries/foreign-stock-dividend";
+import { ForeignStockTradingData } from "./e-deliveries/foreign-stock-trading/types";
 import type { extract } from "./extract";
-import { ForeignStockDividendData } from "./files/foreign-stock-dividend";
-import { ForeignStockTradingData } from "./files/foreign-stock-trading/types";
 
 type Result = {
   foreignStockDividend: ForeignStockDividendData[];

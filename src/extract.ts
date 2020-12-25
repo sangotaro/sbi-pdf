@@ -1,11 +1,11 @@
 import {
   ForeignStockDividend,
   ForeignStockDividendData,
-} from "./files/foreign-stock-dividend";
+} from "./e-deliveries/foreign-stock-dividend";
 import {
   ForeignStockTrading,
   ForeignStockTradingData,
-} from "./files/foreign-stock-trading";
+} from "./e-deliveries/foreign-stock-trading";
 import { tabula } from "./tabula";
 import { BaseError } from "./utils/error";
 
