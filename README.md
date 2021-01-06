@@ -5,10 +5,11 @@
 SBI 証券の電子交付書面からデータ抽出する
 
 [![oclif](https://img.shields.io/badge/cli-oclif-brightgreen.svg)](https://oclif.io)
+<!--
 [![Version](https://img.shields.io/npm/v/mynewcli.svg)](https://npmjs.org/package/mynewcli)
 [![Downloads/week](https://img.shields.io/npm/dw/mynewcli.svg)](https://npmjs.org/package/mynewcli)
 [![License](https://img.shields.io/npm/l/mynewcli.svg)](https://github.com/sangotaro/mynewcli/blob/master/package.json)
-
+-->
 [![codecov](https://codecov.io/gh/sangotaro/sbi-pdf/branch/master/graph/badge.svg?token=GMETK1D3WI)](https://codecov.io/gh/sangotaro/sbi-pdf)
 
 ## 対応書面
@@ -29,22 +30,16 @@ SBI 証券の電子交付書面からデータ抽出する
   - [ ] 譲渡益税徴収・還付のお知らせ
   - [x] 外国株式等株式分割・権利売却等のご案内（※株式分割のみ確認）
 
-<!-- toc -->
-
-- [Usage](#usage)
-- [Commands](#commands)
-<!-- tocstop -->
-
 # Usage
 
 <!-- usage -->
-
+TBD
 <!-- usagestop -->
 
 # Commands
 
 <!-- commands -->
-
+TBD
 <!-- commandsstop -->
 
 # Development
@@ -53,15 +48,10 @@ SBI 証券の電子交付書面からデータ抽出する
 
 - Java: [tabula-java](https://github.com/tabulapdf/tabula-java) を実行している
 
-## Build
+## Run
 
 ```
 npm i --no-save
 npm run build
-```
-
-## Run
-
-```
 ./bin/run --dir=[pdf-dir]
 ```
