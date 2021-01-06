@@ -37,18 +37,19 @@ export async function extract(pdfFile: string): Promise<Result> {
   try {
     result = await tabula(`-g -l -f JSON -p all ${pdfFile}`);
   } catch (e) {
-    console.log(e);
+    // TODO: throw ExtractError
+    process.stderr.write(e?.message);
     process.exit(1);
   }
   const tables = JSON.parse(result);
-  console.log(`PDF (${pdfFile}) 内のテーブル数: ${tables.length}`);
+  process.stderr.write(`PDF (${pdfFile}) 内のテーブル数: ${tables.length}\n`);
 
   if (ForeignStockDividend.isTables(tables)) {
     const items = await ForeignStockDividend.extractFromTables(tables);
-    console.log(
+    process.stderr.write(
       `=> ForeignStockDividend 抽出データセット数: ${items.length} / ${
         tables.length / 2
-      }`
+      }\n`
     );
     if (items.length > tables.length) {
       throw new ExtractError(
@@ -61,8 +62,8 @@ export async function extract(pdfFile: string): Promise<Result> {
     };
   } else if (ForeignStockTrading.isTables(tables)) {
     const items = await ForeignStockTrading.extractFromTables(tables);
-    console.log(
-      `=> ForeignStockTrading 抽出データセット数: ${items.length} / ${tables.length}`
+    process.stderr.write(
+      `=> ForeignStockTrading 抽出データセット数: ${items.length} / ${tables.length}\n`
     );
     if (items.length > tables.length) {
       throw new ExtractError(
@@ -75,10 +76,10 @@ export async function extract(pdfFile: string): Promise<Result> {
     };
   } else if (ForeignStockSplit.isTables(tables)) {
     const items = await ForeignStockSplit.extractFromTables(tables);
-    console.log(
+    process.stderr.write(
       `=> ForeignStockSplit 抽出データセット数: ${items.length} / ${
         tables.length / 2
-      }`
+      }\n`
     );
     if (items.length > tables.length) {
       throw new ExtractError(
@@ -90,6 +91,6 @@ export async function extract(pdfFile: string): Promise<Result> {
       items,
     };
   }
-  console.warn("=> 不明なファイル");
+  process.stderr.write("=> 不明なファイル\n");
   return { type: "unknown" };
 }
