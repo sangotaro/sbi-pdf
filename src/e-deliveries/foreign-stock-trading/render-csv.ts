@@ -6,10 +6,10 @@ export function renderCsv(
   // header
   const item = foreignStockTradingItems[0];
   if (item) {
-    console.log([...Object.keys(item)].join(","));
+    process.stdout.write([...Object.keys(item)].join(",") + "\n");
   }
   // values
   foreignStockTradingItems.forEach((item) => {
-    console.log([...Object.values(item)].join(","));
+    process.stdout.write([...Object.values(item)].join(","));
   });
 }

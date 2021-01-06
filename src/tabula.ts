@@ -15,6 +15,6 @@ export async function tabula(args: string): Promise<string> {
     const result = await exec(`java -jar ${jar} ${args}`);
     return result.stdout;
   } catch (e) {
-    throw new TabulaError(e);
+    throw new TabulaError(e.message);
   }
 }
