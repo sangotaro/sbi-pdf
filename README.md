@@ -1,16 +1,14 @@
 # sbi-pdf
 
-========
-
 SBI 証券の電子交付書面からデータ抽出する
 
 [![oclif](https://img.shields.io/badge/cli-oclif-brightgreen.svg)](https://oclif.io)
+[![codecov](https://codecov.io/gh/sangotaro/sbi-pdf/branch/master/graph/badge.svg?token=GMETK1D3WI)](https://codecov.io/gh/sangotaro/sbi-pdf)
 <!--
 [![Version](https://img.shields.io/npm/v/mynewcli.svg)](https://npmjs.org/package/mynewcli)
 [![Downloads/week](https://img.shields.io/npm/dw/mynewcli.svg)](https://npmjs.org/package/mynewcli)
 [![License](https://img.shields.io/npm/l/mynewcli.svg)](https://github.com/sangotaro/mynewcli/blob/master/package.json)
 -->
-[![codecov](https://codecov.io/gh/sangotaro/sbi-pdf/branch/master/graph/badge.svg?token=GMETK1D3WI)](https://codecov.io/gh/sangotaro/sbi-pdf)
 
 ## 対応書面
 
