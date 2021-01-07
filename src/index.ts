@@ -4,6 +4,7 @@ import path from "path";
 import { promisify } from "util";
 
 import { Command, flags } from "@oclif/command";
+import { cli } from "cli-ux";
 import expandTilde from "expand-tilde";
 import pLimit from "p-limit";
 
@@ -26,6 +27,7 @@ class Main extends Command {
       description: "directory containing pdf files",
       required: true,
     }),
+    json: flags.boolean({ description: "output in json format" }),
   };
 
   static args = [];
@@ -71,18 +73,22 @@ class Main extends Command {
       this.exit(1);
     }
 
-    // TODO: 仮の出力
-    if (dataByType.foreignStockDividend.length > 0) {
-      console.log("\n外国株式等配当金\n");
-      ForeignStockDividend.renderCsv(dataByType.foreignStockDividend);
-    }
-    if (dataByType.foreignStockTrading.length > 0) {
-      console.log("\n外国株式等取引報告書\n");
-      ForeignStockTrading.renderCsv(dataByType.foreignStockTrading);
-    }
-    if (dataByType.foreignStockSplit.length > 0) {
-      console.log("\n外国株式等 株式分割・権利売却等のご案内\n");
-      ForeignStockSplit.renderCsv(dataByType.foreignStockSplit);
+    if (flags.json) {
+      cli.styledJSON(dataByType);
+    } else {
+      // TODO: 仮の出力
+      if (dataByType.foreignStockDividend.length > 0) {
+        console.log("\n外国株式等配当金\n");
+        ForeignStockDividend.renderCsv(dataByType.foreignStockDividend);
+      }
+      if (dataByType.foreignStockTrading.length > 0) {
+        console.log("\n外国株式等取引報告書\n");
+        ForeignStockTrading.renderCsv(dataByType.foreignStockTrading);
+      }
+      if (dataByType.foreignStockSplit.length > 0) {
+        console.log("\n外国株式等 株式分割・権利売却等のご案内\n");
+        ForeignStockSplit.renderCsv(dataByType.foreignStockSplit);
+      }
     }
   }
 }
