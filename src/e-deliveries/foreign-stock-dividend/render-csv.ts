@@ -1,3 +1,5 @@
+import { cli } from "cli-ux";
+
 import { ForeignStockDividendItem } from "./types";
 
 export function renderCsv(
@@ -7,14 +9,10 @@ export function renderCsv(
   // TODO: ヘッダー名に被りがある
   const item = foreignStockDividendItems[0];
   if (item && item[0] && item[1]) {
-    process.stdout.write(
-      [...Object.keys(item[0]), ...Object.keys(item[1])].join(",") + "\n"
-    );
+    cli.log([...Object.keys(item[0]), ...Object.keys(item[1])].join(","));
   }
   // values
   foreignStockDividendItems.forEach((item) => {
-    process.stdout.write(
-      [...Object.values(item[0]), ...Object.values(item[1])].join(",")
-    );
+    cli.log([...Object.values(item[0]), ...Object.values(item[1])].join(","));
   });
 }

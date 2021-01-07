@@ -12,9 +12,12 @@ export class TabulaError extends BaseError {}
 export async function tabula(args: string): Promise<string> {
   const jar = path.join(dirname, "../tabula/build/libs/tabula-all.jar");
   try {
-    const result = await exec(`java -jar ${jar} ${args}`);
-    return result.stdout;
+    const { stdout } = await exec(`java -jar ${jar} ${args}`);
+    return stdout;
   } catch (e) {
-    throw new TabulaError(e.message);
+    if (e.stderr === "Error: Error: End-of-File, expected line\n") {
+      throw new TabulaError("unknown file");
+    }
+    throw new TabulaError("unexpected");
   }
 }

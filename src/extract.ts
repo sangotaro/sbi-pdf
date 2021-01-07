@@ -1,3 +1,5 @@
+import { cli } from "cli-ux";
+
 import {
   ForeignStockDividend,
   ForeignStockDividendItem,
@@ -37,19 +39,17 @@ export async function extract(pdfFile: string): Promise<Result> {
   try {
     result = await tabula(`-g -l -f JSON -p all ${pdfFile}`);
   } catch (e) {
-    // TODO: throw ExtractError
-    process.stderr.write(e?.message);
-    process.exit(1);
+    throw new ExtractError(`tabula failed`);
   }
   const tables = JSON.parse(result);
-  process.stderr.write(`PDF (${pdfFile}) 内のテーブル数: ${tables.length}\n`);
+  cli.debug(`PDF (${pdfFile}) 内のテーブル数: ${tables.length}`);
 
   if (ForeignStockDividend.isTables(tables)) {
     const items = await ForeignStockDividend.extractFromTables(tables);
-    process.stderr.write(
+    cli.debug(
       `=> ForeignStockDividend 抽出データセット数: ${items.length} / ${
         tables.length / 2
-      }\n`
+      }`
     );
     if (items.length > tables.length) {
       throw new ExtractError(
@@ -62,8 +62,8 @@ export async function extract(pdfFile: string): Promise<Result> {
     };
   } else if (ForeignStockTrading.isTables(tables)) {
     const items = await ForeignStockTrading.extractFromTables(tables);
-    process.stderr.write(
-      `=> ForeignStockTrading 抽出データセット数: ${items.length} / ${tables.length}\n`
+    cli.debug(
+      `=> ForeignStockTrading 抽出データセット数: ${items.length} / ${tables.length}`
     );
     if (items.length > tables.length) {
       throw new ExtractError(
@@ -76,10 +76,10 @@ export async function extract(pdfFile: string): Promise<Result> {
     };
   } else if (ForeignStockSplit.isTables(tables)) {
     const items = await ForeignStockSplit.extractFromTables(tables);
-    process.stderr.write(
+    cli.debug(
       `=> ForeignStockSplit 抽出データセット数: ${items.length} / ${
         tables.length / 2
-      }\n`
+      }`
     );
     if (items.length > tables.length) {
       throw new ExtractError(
@@ -91,6 +91,6 @@ export async function extract(pdfFile: string): Promise<Result> {
       items,
     };
   }
-  process.stderr.write("=> 不明なファイル\n");
+  cli.debug("=> 不明なファイル");
   return { type: "unknown" };
 }
