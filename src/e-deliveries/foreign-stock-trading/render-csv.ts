@@ -1,3 +1,5 @@
+import { cli } from "cli-ux";
+
 import { ForeignStockTradingItem } from "./types";
 
 export function renderCsv(
@@ -6,10 +8,10 @@ export function renderCsv(
   // header
   const item = foreignStockTradingItems[0];
   if (item) {
-    process.stdout.write([...Object.keys(item)].join(",") + "\n");
+    cli.log([...Object.keys(item)].join(","));
   }
   // values
   foreignStockTradingItems.forEach((item) => {
-    process.stdout.write([...Object.values(item)].join(","));
+    cli.log([...Object.values(item)].join(","));
   });
 }

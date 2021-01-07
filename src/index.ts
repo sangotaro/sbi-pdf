@@ -48,10 +48,10 @@ class Main extends Command {
     }
 
     if (files.length === 0) {
-      process.stderr.write("there is no pdf file\n");
+      this.warn("there is no pdf file");
       this.exit();
     }
-    process.stderr.write(`${files.length} pdf files found\n`);
+    this.debug(`${files.length} pdf files found`);
 
     const limit = pLimit(os.cpus().length - 1);
     let dataByType;
@@ -61,7 +61,7 @@ class Main extends Command {
       );
     } catch (e) {
       if (e instanceof ExtractError) {
-        this.error(e.message);
+        this.error(`${e.name}: ${e.message}`);
       }
       this.exit(1);
     }
@@ -71,15 +71,15 @@ class Main extends Command {
     } else {
       // TODO: 仮の出力
       if (dataByType.foreignStockDividend.length > 0) {
-        console.log("\n外国株式等配当金\n");
+        cli.styledHeader("外国株式等配当金");
         ForeignStockDividend.renderCsv(dataByType.foreignStockDividend);
       }
       if (dataByType.foreignStockTrading.length > 0) {
-        console.log("\n外国株式等取引報告書\n");
+        cli.styledHeader("外国株式等取引報告書");
         ForeignStockTrading.renderCsv(dataByType.foreignStockTrading);
       }
       if (dataByType.foreignStockSplit.length > 0) {
-        console.log("\n外国株式等 株式分割・権利売却等のご案内\n");
+        cli.styledHeader("外国株式等 株式分割・権利売却等のご案内");
         ForeignStockSplit.renderCsv(dataByType.foreignStockSplit);
       }
     }
