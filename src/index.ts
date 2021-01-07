@@ -1,6 +1,6 @@
 import fs from "fs";
 import os from "os";
-import path from "path";
+import { isAbsolute, join } from "path";
 import { promisify } from "util";
 
 import { Command, flags } from "@oclif/command";
@@ -17,42 +17,35 @@ import { groupByType } from "./group-by-type";
 const readdir = promisify(fs.readdir);
 
 class Main extends Command {
-  static description = "sbi pdf command";
+  static description =
+    "extract table data from sbi electronic delivery document";
 
   static flags = {
     version: flags.version({ char: "v" }),
     help: flags.help({ char: "h" }),
-    dir: flags.string({
-      char: "d",
-      description: "directory containing pdf files",
-      required: true,
-    }),
     json: flags.boolean({ description: "output in json format" }),
   };
 
-  static args = [];
-
-  static usage = "spi-pdf --dir=[DIR]";
+  static args = [{ name: "path", default: "." }];
 
   // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
   async run() {
-    const { flags } = this.parse(Main);
-    const dir = expandTilde(flags.dir);
-    const absoluteDir = path.isAbsolute(dir)
-      ? dir
-      : path.join(process.cwd(), dir);
+    const { args, flags } = this.parse(Main);
+    const path = expandTilde(args.path);
+    const absolutePath = isAbsolute(path) ? path : join(process.cwd(), path);
 
-    try {
-      if (!fs.statSync(absoluteDir).isDirectory()) {
-        throw new Error();
-      }
-    } catch (error) {
-      this.error(`${absoluteDir} does not exist or is not a directory`);
+    if (!fs.existsSync(absolutePath)) {
+      this.error(`${absolutePath} does not exist`);
     }
 
-    const files = (await readdir(absoluteDir))
-      .map((file) => path.join(absoluteDir, file))
-      .filter((file) => fs.statSync(file).isFile() && /.*\.pdf$/.test(file));
+    let files: string[] = [];
+    if (fs.statSync(absolutePath).isDirectory()) {
+      files = (await readdir(absolutePath))
+        .map((file) => join(absolutePath, file))
+        .filter((file) => fs.statSync(file).isFile() && /.*\.pdf$/.test(file));
+    } else if (/.*\.pdf$/.test(path)) {
+      files = [path];
+    }
 
     if (files.length === 0) {
       process.stderr.write("there is no pdf file\n");
