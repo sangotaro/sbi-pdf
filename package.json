@@ -1,7 +1,7 @@
 {
   "name": "sbi-pdf",
-  "version": "1.0.0",
-  "author": "sangotaro",
+  "version": "0.0.0",
+  "author": "sangotaro @sangotaro",
   "bin": {
     "sbi-pdf": "./bin/run"
   },
@@ -22,6 +22,7 @@
     "@types/expand-tilde": "2.0.0",
     "@types/jest": "26.0.20",
     "@types/node": "14.14.20",
+    "globby": "10.0.2",
     "@typescript-eslint/eslint-plugin": "4.12.0",
     "@typescript-eslint/parser": "4.12.0",
     "eslint": "7.17.0",
@@ -40,7 +41,9 @@
   },
   "files": [
     "/bin",
-    "/lib"
+    "/lib",
+    "/npm-shrinkwrap.json",
+    "/oclif.manifest.json"
   ],
   "homepage": "https://github.com/sangotaro/sbi-pdf",
   "importSort": {
@@ -55,7 +58,11 @@
   "license": "MIT",
   "main": "lib/index.js",
   "oclif": {
-    "bin": "sbi-pdf"
+    "commands": "./lib/commands",
+    "bin": "sbi-pdf",
+    "plugins": [
+      "@oclif/plugin-help"
+    ]
   },
   "private": true,
   "repository": "sangotaro/sbi-pdf",
@@ -65,7 +72,8 @@
     "build:ts": "tsc",
     "format": "prettier --write src",
     "lint": "eslint --ext .ts src",
-    "prepack": "rm -rf lib && tsc -b && oclif-dev readme",
+    "postpack": "rm -f oclif.manifest.json",
+    "prepack": "rm -rf lib && tsc -b && oclif-dev manifest && oclif-dev readme",
     "test": "jest",
     "test:coverage": "jest --coverage",
     "version": "oclif-dev readme && git add README.md"

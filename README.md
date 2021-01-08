@@ -1,14 +1,7 @@
 # sbi-pdf
 
 SBI 証券の電子交付書面からデータ抽出する
-
-[![oclif](https://img.shields.io/badge/cli-oclif-brightgreen.svg)](https://oclif.io)
 [![codecov](https://codecov.io/gh/sangotaro/sbi-pdf/branch/master/graph/badge.svg?token=GMETK1D3WI)](https://codecov.io/gh/sangotaro/sbi-pdf)
-<!--
-[![Version](https://img.shields.io/npm/v/mynewcli.svg)](https://npmjs.org/package/mynewcli)
-[![Downloads/week](https://img.shields.io/npm/dw/mynewcli.svg)](https://npmjs.org/package/mynewcli)
-[![License](https://img.shields.io/npm/l/mynewcli.svg)](https://github.com/sangotaro/mynewcli/blob/master/package.json)
--->
 
 ## 対応書面
 
@@ -31,25 +24,59 @@ SBI 証券の電子交付書面からデータ抽出する
 # Usage
 
 <!-- usage -->
-TBD
+```sh-session
+$ npm install -g sbi-pdf
+$ sbi-pdf COMMAND
+running command...
+$ sbi-pdf (-v|--version|version)
+sbi-pdf/0.0.0 darwin-x64 node-v14.15.4
+$ sbi-pdf --help [COMMAND]
+USAGE
+  $ sbi-pdf COMMAND
+...
+```
 <!-- usagestop -->
 
 # Commands
 
 <!-- commands -->
-TBD
+* [`sbi-pdf [PATH]`](#sbi-pdf-path)
+* [`sbi-pdf help [COMMAND]`](#sbi-pdf-help-command)
+
+## `sbi-pdf [PATH]`
+
+extract table data from sbi electronic delivery document
+
+```
+USAGE
+  $ sbi-pdf [PATH]
+
+OPTIONS
+  -h, --help     show CLI help
+  -v, --version  show CLI version
+  --json         output in json format
+```
+
+_See code: [src/commands/index.ts](https://github.com/sangotaro/sbi-pdf/blob/v0.0.0/src/commands/index.ts)_
+
+## `sbi-pdf help [COMMAND]`
+
+display help for sbi-pdf
+
+```
+USAGE
+  $ sbi-pdf help [COMMAND]
+
+ARGUMENTS
+  COMMAND  command to show help for
+
+OPTIONS
+  --all  see all commands in CLI
+```
+
+_See code: [@oclif/plugin-help](https://github.com/oclif/plugin-help/blob/v3.2.1/src/commands/help.ts)_
 <!-- commandsstop -->
 
-# Development
-
-## Requirements
+# Requirements
 
 - Java: [tabula-java](https://github.com/tabulapdf/tabula-java) を実行している
-
-## Run
-
-```
-npm i --no-save
-npm run build
-./bin/run --dir=[pdf-dir]
-```
