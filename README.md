@@ -1,6 +1,7 @@
 # sbi-pdf
 
 SBI 証券の電子交付書面からデータ抽出する
+
 [![codecov](https://codecov.io/gh/sangotaro/sbi-pdf/branch/master/graph/badge.svg?token=GMETK1D3WI)](https://codecov.io/gh/sangotaro/sbi-pdf)
 
 ## 対応書面
@@ -24,6 +25,7 @@ SBI 証券の電子交付書面からデータ抽出する
 # Usage
 
 <!-- usage -->
+
 ```sh-session
 $ npm install -g sbi-pdf
 $ sbi-pdf COMMAND
@@ -35,13 +37,15 @@ USAGE
   $ sbi-pdf COMMAND
 ...
 ```
+
 <!-- usagestop -->
 
 # Commands
 
 <!-- commands -->
-* [`sbi-pdf [PATH]`](#sbi-pdf-path)
-* [`sbi-pdf help [COMMAND]`](#sbi-pdf-help-command)
+
+- [`sbi-pdf [PATH]`](#sbi-pdf-path)
+- [`sbi-pdf help [COMMAND]`](#sbi-pdf-help-command)
 
 ## `sbi-pdf [PATH]`
 
@@ -75,6 +79,7 @@ OPTIONS
 ```
 
 _See code: [@oclif/plugin-help](https://github.com/oclif/plugin-help/blob/v3.2.1/src/commands/help.ts)_
+
 <!-- commandsstop -->
 
 # Requirements
