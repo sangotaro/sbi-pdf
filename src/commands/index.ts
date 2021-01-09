@@ -11,7 +11,7 @@ import { ForeignStockTrading } from "../e-deliveries/foreign-stock-trading";
 import { ExtractError, extract } from "../extract";
 import { groupByType } from "../group-by-type";
 
-export default class Main extends Base {
+export default class Main extends Base<unknown> {
   static description =
     "extract table data from sbi electronic delivery document";
 
@@ -22,6 +22,12 @@ export default class Main extends Base {
   };
 
   static args = [{ name: "path", default: "." }];
+
+  // dummy method
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  async extractItems(tables: unknown[]): Promise<unknown[]> {
+    return [];
+  }
 
   async run(): Promise<void> {
     const { args, flags } = this.parse(Main);
