@@ -1,15 +1,15 @@
 import { flags } from "@oclif/command";
 import { cli } from "cli-ux";
 
-import { Base } from "../base";
 import {
-  ForeignStockDividend,
-  ForeignStockDividendItem,
-} from "../e-deliveries/foreign-stock-dividend";
+  ForeignStockSplit,
+  ForeignStockSplitItem,
+} from "./../e-deliveries/foreign-stock-split";
+import { Base } from "../base";
 
-export default class Dividend extends Base<ForeignStockDividendItem> {
+export default class Split extends Base<ForeignStockSplitItem> {
   static description =
-    "外国株式等配当金等のご案内（兼）支払通知書から表データを抽出する";
+    "外国株式等株式分割・権利売却等のご案内から表データを抽出する";
 
   static flags = {
     version: flags.version({ char: "v" }),
@@ -19,10 +19,10 @@ export default class Dividend extends Base<ForeignStockDividendItem> {
 
   static args = [{ name: "path", default: "." }];
 
-  async extractItems(tables: unknown[]): Promise<ForeignStockDividendItem[]> {
-    let items: ForeignStockDividendItem[] = [];
-    if (ForeignStockDividend.isTables(tables)) {
-      items = ForeignStockDividend.extractFromTables(tables);
+  async extractItems(tables: unknown[]): Promise<ForeignStockSplitItem[]> {
+    let items: ForeignStockSplitItem[] = [];
+    if (ForeignStockSplit.isTables(tables)) {
+      items = ForeignStockSplit.extractFromTables(tables);
       const expectedItems = tables.length / 2;
       cli.debug(`抽出データセット数: ${items.length} / ${tables.length / 2}`);
       if (expectedItems > items.length) {
@@ -33,15 +33,15 @@ export default class Dividend extends Base<ForeignStockDividendItem> {
   }
 
   async run(): Promise<void> {
-    const { args, flags } = this.parse(Dividend);
+    const { args, flags } = this.parse(Split);
     const files = await this.findFiles(args.path);
     const items = await this.batchExtract(files);
 
     if (flags.json) {
       cli.styledJSON(items);
     } else {
-      cli.styledHeader("外国株式等配当金等のご案内（兼）支払通知書");
-      ForeignStockDividend.renderCsv(items);
+      cli.styledHeader("外国株式等 株式分割・権利売却等のご案内");
+      ForeignStockSplit.renderCsv(items);
     }
   }
 }

@@ -1,8 +1,8 @@
 import Ajv from "ajv";
 
-import { schema } from "./schema";
+import { Table0, Table1, schema } from "./schema";
 
-export function isTables(tables: unknown): boolean {
+export function isTables(tables: unknown): tables is (Table0 | Table1)[] {
   if (!Array.isArray(tables)) {
     return false;
   }
