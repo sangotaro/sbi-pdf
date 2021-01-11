@@ -4,6 +4,7 @@ import { isAbsolute, join } from "path";
 import { promisify } from "util";
 
 import { Command } from "@oclif/command";
+import { cli } from "cli-ux";
 import expandTilde from "expand-tilde";
 import pLimit from "p-limit";
 
@@ -52,16 +53,20 @@ export abstract class Base<T> extends Command {
   abstract extractItems(tables: unknown[]): Promise<T[]>;
 
   async batchExtract(files: string[]): Promise<T[]> {
+    const bar = cli.progress();
+    bar.start(files.length, 0);
     const limit = pLimit(os.cpus().length - 1);
     return (
       await Promise.all(
         files.map((f) =>
           limit(async () => {
             const tables = await this.extractTables(f);
-            return await this.extractItems(tables);
+            const items = await this.extractItems(tables);
+            bar.increment();
+            return items;
           })
         )
-      )
+      ).finally(() => bar.stop())
     ).flat();
   }
 }
