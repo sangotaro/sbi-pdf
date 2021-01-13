@@ -25,7 +25,6 @@ SBI 証券の電子交付書面からデータ抽出する
 # Usage
 
 <!-- usage -->
-
 ```sh-session
 $ npm install -g sbi-pdf
 $ sbi-pdf COMMAND
@@ -37,23 +36,23 @@ USAGE
   $ sbi-pdf COMMAND
 ...
 ```
-
 <!-- usagestop -->
 
 # Commands
 
 <!-- commands -->
+* [`sbi-pdf dividend [PATH]`](#sbi-pdf-dividend-path)
+* [`sbi-pdf help [COMMAND]`](#sbi-pdf-help-command)
+* [`sbi-pdf split [PATH]`](#sbi-pdf-split-path)
+* [`sbi-pdf trading [PATH]`](#sbi-pdf-trading-path)
 
-- [`sbi-pdf [PATH]`](#sbi-pdf-path)
-- [`sbi-pdf help [COMMAND]`](#sbi-pdf-help-command)
+## `sbi-pdf dividend [PATH]`
 
-## `sbi-pdf [PATH]`
-
-extract table data from sbi electronic delivery document
+外国株式等配当金等のご案内（兼）支払通知書から表データを抽出する
 
 ```
 USAGE
-  $ sbi-pdf [PATH]
+  $ sbi-pdf dividend [PATH]
 
 OPTIONS
   -h, --help     show CLI help
@@ -61,7 +60,7 @@ OPTIONS
   --json         output in json format
 ```
 
-_See code: [src/commands/index.ts](https://github.com/sangotaro/sbi-pdf/blob/v0.0.0/src/commands/index.ts)_
+_See code: [src/commands/dividend.ts](https://github.com/sangotaro/sbi-pdf/blob/v0.0.0/src/commands/dividend.ts)_
 
 ## `sbi-pdf help [COMMAND]`
 
@@ -80,6 +79,37 @@ OPTIONS
 
 _See code: [@oclif/plugin-help](https://github.com/oclif/plugin-help/blob/v3.2.1/src/commands/help.ts)_
 
+## `sbi-pdf split [PATH]`
+
+外国株式等株式分割・権利売却等のご案内から表データを抽出する
+
+```
+USAGE
+  $ sbi-pdf split [PATH]
+
+OPTIONS
+  -h, --help     show CLI help
+  -v, --version  show CLI version
+  --json         output in json format
+```
+
+_See code: [src/commands/split.ts](https://github.com/sangotaro/sbi-pdf/blob/v0.0.0/src/commands/split.ts)_
+
+## `sbi-pdf trading [PATH]`
+
+外国株式等取引報告書から表データを抽出する
+
+```
+USAGE
+  $ sbi-pdf trading [PATH]
+
+OPTIONS
+  -h, --help     show CLI help
+  -v, --version  show CLI version
+  --json         output in json format
+```
+
+_See code: [src/commands/trading.ts](https://github.com/sangotaro/sbi-pdf/blob/v0.0.0/src/commands/trading.ts)_
 <!-- commandsstop -->
 
 # Requirements
