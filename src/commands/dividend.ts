@@ -1,4 +1,3 @@
-import { flags } from "@oclif/command";
 import { cli } from "cli-ux";
 
 import { Base } from "../base";
@@ -12,12 +11,10 @@ export default class Dividend extends Base<ForeignStockDividendItem> {
     "外国株式等配当金等のご案内（兼）支払通知書から表データを抽出する";
 
   static flags = {
-    version: flags.version({ char: "v" }),
-    help: flags.help({ char: "h" }),
-    json: flags.boolean({ description: "output in json format" }),
+    ...Base.flags,
   };
 
-  static args = [{ name: "path", default: "." }];
+  static args = [...Base.args];
 
   async extractItems(tables: unknown[]): Promise<ForeignStockDividendItem[]> {
     let items: ForeignStockDividendItem[] = [];

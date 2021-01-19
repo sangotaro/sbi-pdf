@@ -1,4 +1,3 @@
-import { flags } from "@oclif/command";
 import { cli } from "cli-ux";
 
 import {
@@ -12,12 +11,10 @@ export default class Split extends Base<ForeignStockSplitItem> {
     "外国株式等株式分割・権利売却等のご案内から表データを抽出する";
 
   static flags = {
-    version: flags.version({ char: "v" }),
-    help: flags.help({ char: "h" }),
-    json: flags.boolean({ description: "output in json format" }),
+    ...Base.flags,
   };
 
-  static args = [{ name: "path", default: "." }];
+  static args = [...Base.args];
 
   async extractItems(tables: unknown[]): Promise<ForeignStockSplitItem[]> {
     let items: ForeignStockSplitItem[] = [];
