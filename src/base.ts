@@ -3,7 +3,7 @@ import os from "os";
 import { isAbsolute, join } from "path";
 import { promisify } from "util";
 
-import { Command } from "@oclif/command";
+import { Command, flags } from "@oclif/command";
 import { cli } from "cli-ux";
 import expandTilde from "expand-tilde";
 import pLimit from "p-limit";
@@ -13,6 +13,14 @@ import { tabula } from "./tabula";
 const readdir = promisify(fs.readdir);
 
 export abstract class Base<T> extends Command {
+  static flags = {
+    version: flags.version({ char: "v" }),
+    help: flags.help({ char: "h" }),
+    json: flags.boolean({ description: "output in json format" }),
+  };
+
+  static args = [{ name: "path", default: "." }];
+
   async findFiles(pathString: string): Promise<string[]> {
     const path = expandTilde(pathString);
     const absolutePath = isAbsolute(path) ? path : join(process.cwd(), path);

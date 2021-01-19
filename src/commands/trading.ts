@@ -1,4 +1,3 @@
-import { flags } from "@oclif/command";
 import { cli } from "cli-ux";
 
 import {
@@ -11,12 +10,10 @@ export default class Trading extends Base<ForeignStockTradingItem> {
   static description = "外国株式等取引報告書から表データを抽出する";
 
   static flags = {
-    version: flags.version({ char: "v" }),
-    help: flags.help({ char: "h" }),
-    json: flags.boolean({ description: "output in json format" }),
+    ...Base.flags,
   };
 
-  static args = [{ name: "path", default: "." }];
+  static args = [...Base.args];
 
   async extractItems(tables: unknown[]): Promise<ForeignStockTradingItem[]> {
     let items: ForeignStockTradingItem[] = [];
