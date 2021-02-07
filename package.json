@@ -9,7 +9,7 @@
   "dependencies": {
     "@oclif/command": "1.8.0",
     "@oclif/config": "1.17.0",
-    "@oclif/plugin-help": "3.2.1",
+    "@oclif/plugin-help": "3.2.2",
     "ajv": "7.0.4",
     "cli-ux": "5.5.1",
     "expand-tilde": "2.0.2",
