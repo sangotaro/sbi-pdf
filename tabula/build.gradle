@@ -22,5 +22,5 @@ repositories {
 }
 
 dependencies {
-  implementation 'technology.tabula:tabula:1.0.4'
+  implementation 'technology.tabula:tabula:1.0.5'
 }
